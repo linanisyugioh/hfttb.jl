@@ -1,38 +1,26 @@
 module hfttb
-
 using CBinding
+using Pkg.Artifacts
+using FinancialStruct:cOnlyTBTickData,cSecurityTickData,cTickByTickData,HDataItem
 
-hdb_struct = "D:/workspace/backtest/win64/struct_julia/hdb_types.jl"
-tick_struct = "D:/workspace/backtest/win64/struct_julia/tick_def.jl"
-include(hdb_struct)
-#export HDataItem
-include(tick_struct)
-export cOnlyTBTickData
-export cSecurityTickData
-export cTickByTickData
-
-###@pyimport datetime
-function load_dll(dllpath::String="D:/workspace/backtest/win64/hfttb/lib/")
-    if !(dllpath in Libc.Libdl.DL_LOAD_PATH)
-        push!(Libc.Libdl.DL_LOAD_PATH, dllpath)
+# 使用 Artifacts 动态加载库文件
+function __init__()
+    # 确保 artifact 可用
+    lib_dir = artifact"hfttb_lib"
+    # 根据平台设置库路径
+    global dlfile
+    if Sys.iswindows()
+        dlfile = joinpath(lib_dir, "hfttb_wrap.dll")
+    elseif Sys.islinux()
+#        dlfile = joinpath(lib_dir, "libmy_dolphindb_api.so")
     end
-    global lib = Libc.Libdl.dlopen("hfttb_wrap.dll") # 显式打开库
-end
-
-function close_dll()
-    global lib
-    Libc.Libdl.dlclose(lib) # 显式关闭库
-    lib = nothing
-end
-
-function reload_dll(dllpath::String="D:/workspace/backtest/win64/hfttb/lib/")
-    close_dll()
-    if !(dllpath in Libc.Libdl.DL_LOAD_PATH)
-        push!(Libc.Libdl.DL_LOAD_PATH, dllpath)
+    # 验证库文件是否存在
+    if !isfile(dlfile)
+        @error "hfttb library files not found. Please make sure the package is installed correctly."
     end
-    load_dll(dllpath)
+    global lib = Libc.Libdl.dlopen(dlfile)
 end
-#lib = "C:/workspace/julia_hft/backtest/win64/hft/lib"
+
 #######################################strategy_api###############################################
 
 """
