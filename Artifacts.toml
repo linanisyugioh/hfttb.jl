@@ -1,0 +1,8 @@
+[[hfttb_lib]]
+arch = "x86_64"
+git-tree-sha1 = "a6abb5b6454ac23acbd68888a04b18592d0385c1"
+os = "windows"
+
+    [[hfttb_lib.download]]
+    sha256 = "23c49b89e60ef058e744cb393b59dd2c265cccdcfa4935c0bded0165483b6ab7"
+    url = "https://github.com/linanisyugioh/hfttb.jl/releases/download/V0.1.0/hfttb_windows_x64.tar.gz"
