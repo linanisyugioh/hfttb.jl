@@ -12,7 +12,7 @@ function __init__()
     if Sys.iswindows()
         dlfile = joinpath(lib_dir, "hfttb_wrap.dll")
     elseif Sys.islinux()
-#        dlfile = joinpath(lib_dir, "libmy_dolphindb_api.so")
+        dlfile = joinpath(lib_dir, "libhfttb_wrap.so")
     end
     # 验证库文件是否存在
     if !isfile(dlfile)
