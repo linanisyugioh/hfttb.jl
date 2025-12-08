@@ -6,3 +6,12 @@ os = "windows"
     [[hfttb_lib.download]]
     sha256 = "23c49b89e60ef058e744cb393b59dd2c265cccdcfa4935c0bded0165483b6ab7"
     url = "https://github.com/linanisyugioh/hfttb.jl/releases/download/V0.1.0/hfttb_windows_x64.tar.gz"
+[[hfttb_lib]]
+arch = "x86_64"
+git-tree-sha1 = "71de86a2179e14b04b01579fb583ada102f7bb17"
+libc = "glibc"
+os = "linux"
+
+    [[hfttb_lib.download]]
+    sha256 = "fb2c5267c41899a1f1bf3be5a67261f706d65c9d2205d21cf89fc9d2d1d8384a"
+    url = "https://github.com/linanisyugioh/hfttb.jl/releases/download/V0.1.0/hfttb_linux_x64.tar.gz"
